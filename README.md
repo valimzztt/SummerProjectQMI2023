@@ -13,6 +13,26 @@ The intrinsic "nano-layering" observed in $Mn0.60Ni0.40As$ was unique. While a f
 Subsequently, in 2021, the same research group published another paper demonstrating the existence of single-phase $Mn1–xNixAs$ ($0.25 ≤ x ≤ 0.50$) using a rigorous methodology. This unique intrinsic nano structuring allowed for the tuning of the thickness of MnAs and NiAs nanolayers through changes in composition, x. Additionally, they probed the 3d magnetic moments of Mn and Ni, revealing distinct differences. The magnetic moment of manganese was found to be one order of magnitude greater than that of nickel. This study paves the way for a new class of materials with intrinsic layers of varying magnetization, with potential applications in spintronics. Once again, the researchers emphasized the suitability of this intrinsically nanolayered material for advancing spintronics applications, given MnAs' ferromagnetic nature and NiAs' paramagnetic behavior.
 
 
+# Convergence tests:
+There are 3 different shell scripts for three different shell script, each performing one convergence test: one for ENCUT (kinetic energy cutoff for the planewave basis set), KPOINTS 
+1.	Set a geometry of your system of interest:
+This does not need to be a fully optimized geometry, an experimental geometry or a reasonable manually constructed geometry will do fine, as long as it gives you a converged result at the end of your static calculation. A convergence test should not depend on the exact geometry of your system. Rather it should tell you how well your setting converges your result with regard to the energy found on the potential energy surface.
+Well-converged calculations
+1.	Choose XC functional:
+a.	Accuracy: LDA < GGA < Hybrid
+2.	Determine optimal KPOINTS value
+a.	The accuracy increases with number of kpoints
+Useful parameters: 
+For metals, choose a smearing technique (ISMEAR in INCAR)
+Tetrahedron method = Good for very accurate total energy calculations
+Gaussian, Methfessel-Paxton etc = Good for ionic and geometric relaxations
+ISMEAR = N (N>0): method of Methfessel-Paxton order N
+ISMEAR = 0 for Gaussian, -1 for Fermi, -2 for partial occupancies read from WAVECAR or INCAR
+ISMEAR = -5 for tetrahedron method (for DOS calculations + very accurate total energy calculations (no relaxation in metals))
+
+3.	Determine optimal Energy Cutoff (ENCUT)
+a.	ENCUT controls the completeness of the planewave basis set
+4.	Pseudopotentials (POTCAR default): Replaces nucleus and core electrons with fixed effective potential
 
 # Studying the thermodynamics of (Mn,Ni)AS system
 Since we only vary the Mn to Ni ratio, while keeping As fixed, the material system can be viewed as pseudo-binary. The reason for choosing Mn-Ni-As as a model system is motivated by the recent discovery of Magnetically Segregated Nanolayering in Mn-Ni-As intermetallics. 
@@ -62,3 +82,9 @@ An alternative to the computationally demanding crystal structure prediction (CS
 Despite CE being computationally efficient it is limited by its dependence on an a priori defined input structure, which limits the considered chemical phase space. It would be interesting to combine CE with CSP so that the drawbacks of each method can be eliminated reciprocally. CE and CSP offers an efficient framework that yields reliable results when searching for low-energy basins as the drawbacks of each framework cancel out. The CSP is herein initially used to identify input structures for the CE models whereas the latter is used to explore the mixing and/or stability tendencies in (Mn,Ni)As
 
 The limitations of the cluster expansion formalism when used to pave the path towards stable and possibly synthesizable materials is the restriction defined by the input structure. Relying on an input structure may hinder the exploration of the phase space. Using CE alone is thus prone to miss valuable information hidden within the complete chemical space. An alternative approach that may circumvent this problem, and where the dependence of any initial structure is of lesser importance, or even neglected, is thus preferred. [CITATION NEEDED]
+
+
+## References: 
+1.	STRUCTURAL AND MAGNETIC PROPERTIES OF Mn t_ ,NitAs
+2.	Gonano, B., Fjellvåg, Ø., Steciuk, G., Saha, D., Pelloquin, D., & Fjellvåg, H. (2020). Exotic compositional ordering in Manganese–Nickel–Arsenic (MN‐NI‐As) intermetallics. Angewandte Chemie, 59(50), 22382–22387. https://doi.org/10.1002/anie.202006135
+3.	Gonano, B., Fjellvåg, Ø., Steciuk, G., Guillou, F., Saha, D., Pelloquin, D., & Fjellvåg, H. (2021). Tuning the magnetically segregated nanolayering in MN–NI–As Intermetallics. Chemistry of Materials, 33(8), 3002–3010. https://doi.org/10.1021/acs.chemmater.1c00760
